@@ -1,56 +1,15 @@
-<!-- index.html -->
-<!doctype html>
-
-<!-- ASSIGN OUR ANGULAR MODULE -->
-<html ng-app="myAnimal">
-<head>
-    <!-- META -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Optimize mobile viewport -->
-
-    <title>Animal App</title>
-
-    <!-- SCROLLS -->
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
-    <!-- load bootstrap -->
-    <style>
-        html {
-            overflow-y: scroll;
-        }
-
-        body {
-            padding-top: 50px;
-        }
-
-        #todo-list {
-            margin-bottom: 30px;
-        }
-    </style>
-
-    <!-- SPELLS -->
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script><!-- load jquery -->
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script><!-- load angular -->
-    <script src="core.js"></script>
-
-</head>
 <!-- SET THE CONTROLLER AND GET ALL Animals -->
-<body ng-controller="mainController">
 <div class="container">
-
-    <!-- HEADER AND Animal COUNT -->
-    <div class="jumbotron text-center">
-        <h1>I'm an animal-aholic <span class="label label-info">{{ sightings.length }}</span></h1>
-    </div>
 
     <!-- Animal LIST -->
     <div id="sighting-list" class="row">
         <div class="col-sm-4 col-sm-offset-4">
 
             <!-- LOOP OVER THE sightings IN $scope.animals -->
-            <div class="checkbox" ng-repeat="sighting in sightings">
+            <div class="checkbox" ng-repeat="sighting in vm.sightings">
                 <label>
                     {{ sighting.sightingName }}
-                    <span class="glyphicon glyphicon-remove" ng-click="deleteSighting(sighting._id)"></span>
+                    <span class="glyphicon glyphicon-remove" ng-click="vm.deleteSighting(sighting._id)"></span>
                 </label>
             </div>
 
@@ -63,27 +22,24 @@
             <form>
                 <div class="form-group">
                     <input type="text" class="form-control input-lg text-center" placeholder="Insert sighting name"
-                           ng-model="formData.sightingName">
-                    <select class="form-control input-lg text-center" ng-model="formData.sightingAnimal">
-                        <option ng-repeat="animal in animals" value={{animal._id}}>{{animal.animalName}}</option>
+                           ng-model="vm.formData.sightingName">
+                    <select class="form-control input-lg text-center" ng-model="vm.formData.sightingAnimal">
+                        <option ng-repeat="animal in vm.animals" value={{animal._id}}>{{animal.animalName}}</option>
                     </select>
                     <!--input type="text" class="form-control input-lg text-center" placeholder="Insert animal name"
                            ng-model="formData.sightingAnimal"-->
                     <input type="text" class="form-control input-lg text-center" placeholder="Insert location"
-                           ng-model="formData.sightingLocation">
+                           ng-model="vm.formData.sightingLocation">
                     <input type="text" class="form-control input-lg text-center" placeholder="Insert time of spotted"
-                           ng-model="formData.sightingTime">
+                           ng-model="vm.formData.sightingTime">
                 </div>
 
-                <button type="submit" class="btn btn-primary btn-lg" ng-click="createSighting()">Add</button>
+                <button type="submit" class="btn btn-primary btn-lg" ng-click="vm.createSighting()">Add</button>
             </form>
         </div>
     </div>
 
-    <a class="btn btn-primary btn-lg" href="animal.html">Animals</a>
-    <a class="btn btn-primary btn-lg" href="sighting.html">Sightings</a>
 
 </div>
 
 </body>
-</html>

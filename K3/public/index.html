@@ -20,7 +20,8 @@
 
     <!-- SPELLS -->
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script><!-- load jquery -->
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script><!-- load angular -->
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-route.js"></script>
     <script src="core.js"></script>
 
 </head>
@@ -33,9 +34,11 @@
             <h1>I'm an animal-aholic <span class="label label-info">{{ animals.length }}</span></h1>
         </div>
 
-        <a class="btn btn-primary btn-lg" href="animal.html">Animals</a>
-        <a class="btn btn-primary btn-lg" href="sighting.html">Sightings</a>
+        <a class="btn btn-primary btn-lg" href="#/animal">Animals</a>
+        <a class="btn btn-primary btn-lg" href="#/sighting">Sightings</a>
     </div>
+
+    <div class="container" ng-view></div>
 
 </body>
 </html>
