@@ -40,16 +40,27 @@
                 <th>
                     Aeg
                 </th>
+                <th></th>
+                <th></th>
             </tr>
             <tr ng-repeat='sighting in vm.sightings'>
                 <td>
                     {{sighting.animal.animalName}}
                 </td>
                 <td>
-                    {{sighting.sightingLocation}}
+                    <span ng-if="!vm.editSighting">{{sighting.sightingLocation}}</span>
+                    <input ng-if="vm.editSighting" class="form-control" ng-model="vm.changedSighting.sightingLocation">
                 </td>
                 <td>
-                    {{sighting.sightingTime}}
+                    <span ng-if="!vm.editSighting">{{sighting.sightingTime}}</span>
+                    <input ng-if="vm.editSighting" class="form-control" ng-model="vm.changedSighting.sightingTime">
+                </td>
+                <td>
+                    <button ng-if="!vm.editSighting" class="btn btn-primary" ng-click="vm.editSighting(sighting)">Muuda</button>
+                    <button ng-if="vm.editSighting" class="btn btn-success" ng-click="vm.updateSighting()">Salvesta</button>
+                </td>
+                <td>
+                    <button ng-if="vm.editSighting" class="btn btn-danger" ng-click="vm.cancelEditSighting()">Tühista</button>
                 </td>
             </tr>
         </table>
