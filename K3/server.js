@@ -37,7 +37,7 @@ var AnimalSchema = new Schema({
 var SightingSchema = new Schema({
     sightingAnimal: [{required: true, type: mongoose.Schema.Types.ObjectId, ref: 'AnimalSchema'}],
     sightingLocation: {required: true, type: String},
-    sightingTime: { required: true, type: Date, default: Date.now }
+    sightingTime: { required: true, type: String }
 });
 
 // Mongoose Model definition
