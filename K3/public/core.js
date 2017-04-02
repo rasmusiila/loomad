@@ -59,11 +59,7 @@ var myAnimal = angular.module('myAnimal', ['ngRoute', 'ui.bootstrap'])
                 });
         };
 
-        vm.openAnimal = function() {
-            vm.animal = {
-                "animalName": "muri",
-                "animalType": "koer"
-            };
+        vm.openAnimal = function(animal) {
 
             var animal_modal = $uibModal.open({
                 animation: 'true',
@@ -75,7 +71,7 @@ var myAnimal = angular.module('myAnimal', ['ngRoute', 'ui.bootstrap'])
                 size: 'lg',
                 resolve: {
                     animal: function () {
-                        return vm.animal;
+                        return animal;
                     }
                 }
             });

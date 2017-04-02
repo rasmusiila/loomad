@@ -17,6 +17,25 @@
         </div>
     </div>
 
+    <table class="table table-striped">
+        <tr>
+            <th>
+            Looma nimi
+            </th>
+            <th>
+            Looma liik
+            </th>
+        </tr>
+        <tr ng-repeat="animal in vm.animals" ng-click="vm.openAnimal(animal)">
+            <td>
+                {{animal.animalName}}
+            </td>
+            <td>
+                {{animal.animalType}}
+            </td>
+        </tr>
+    </table>
+
     <!-- FORM TO CREATE Animals -->
     <div id="animal-form" class="row">
         <div class="col-sm-8 col-sm-offset-2 text-center">
