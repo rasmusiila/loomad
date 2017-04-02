@@ -1,0 +1,63 @@
+<div class="modal-header">
+    <h3 class="modal-title" id="modal-title">{{vm.animal.animalName}}</h3>
+</div>
+<div class="modal-body" id="modal-body">
+    <div class="container">
+
+        <div class="col-md-10">
+            <div class="col-md-6 text-right">
+                <strong>Looma nimi:</strong>
+            </div>
+            <div class="col-md-6 text-left">
+                {{vm.animal.animalName}}
+            </div>
+
+            <div class="col-md-6 text-right">
+                <strong>Looma liik:</strong>
+            </div>
+            <div class="col-md-6 text-left">
+                <span ng-if="!vm.edit">{{vm.animal.animalType}}</span>
+                <input ng-if="vm.edit" type="text" class="form-control" ng-model="vm.changedAnimal.animalType">
+            </div>
+        </div>
+        <div class="col-md-2">
+            <button ng-if="!vm.edit" class="btn btn-primary" ng-click="vm.editAnimal()">Muuda</button>
+            <button ng-if="vm.edit" class="btn btn-success" ng-click="vm.updateAnimal()">Salvesta</button>
+            <button ng-if="vm.edit" class="btn btn-danger" ng-click="vm.cancel()">Tühista</button>
+        </div>
+
+        <div class="h4">
+        Nägemised
+        </div>
+        <table class="table table-striped">
+            <tr>
+                <th>
+                    Looma nimi
+                </th>
+                <th>
+                    Asukoht
+                </th>
+                <th>
+                    Aeg
+                </th>
+            </tr>
+            <tr ng-repeat='sighting in vm.sightings'>
+                <td>
+                    {{sighting.animal.animalName}}
+                </td>
+                <td>
+                    {{sighting.sightingLocation}}
+                </td>
+                <td>
+                    {{sighting.sightingTime}}
+                </td>
+            </tr>
+        </table>
+    </div>
+
+
+
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="vm.close()">Close</button>
+</div>

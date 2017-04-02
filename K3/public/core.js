@@ -2,7 +2,7 @@
  * Created by Koffman on 4/1/2017.
  */
 // public/core.js
-var myAnimal = angular.module('myAnimal', ['ngRoute'])
+var myAnimal = angular.module('myAnimal', ['ngRoute', 'ui.bootstrap'])
     .config(function($routeProvider, $httpProvider) {
             $routeProvider.when('/animal', {
                 templateUrl: 'animal.html',
@@ -19,7 +19,7 @@ var myAnimal = angular.module('myAnimal', ['ngRoute'])
 
         
     })
-   .controller('animalController', function($http) {
+   .controller('animalController', function($http, $uibModal) {
         var vm = this;
         vm.formData = {};
 
@@ -58,6 +58,30 @@ var myAnimal = angular.module('myAnimal', ['ngRoute'])
                     console.log('Error: ' + data);
                 });
         };
+
+        vm.openAnimal = function() {
+            vm.animal = {
+                "animalName": "muri",
+                "animalType": "koer"
+            };
+
+            var animal_modal = $uibModal.open({
+                animation: 'true',
+                ariaLabelledBy: 'modal-title',
+                ariaDescribedBy: 'modal-body',
+                templateUrl: 'animal_modal.html',
+                controller: 'animalModalController',
+                controllerAs: 'vm',
+                size: 'lg',
+                resolve: {
+                    animal: function () {
+                        return vm.animal;
+                    }
+                }
+            });
+        };
+
+        
    })
    .controller('sightingController', function($http) {
         var vm = this;
@@ -106,5 +130,31 @@ var myAnimal = angular.module('myAnimal', ['ngRoute'])
                 .error(function(data) {
                     console.log('Error: ' + data);
                 });
+        };
+   })
+   .controller('animalModalController', function($http, $uibModalInstance, animal) {
+        var vm = this;
+
+        vm.animal = animal;
+        vm.changedAnimal = {};
+
+        vm.edit = false;
+
+        vm.editAnimal = function() {
+            angular.copy(vm.animal, vm.changedAnimal);
+            vm.edit = true;
+        }
+
+        vm.updateAnimal = function() {
+            //TODO
+        }
+
+        vm.cancel = function() {
+            vm.changedAnimal = {};
+            vm.edit = false;
+        }
+
+        vm.close = function () {
+            $uibModalInstance.dismiss('cancel');
         };
    });
