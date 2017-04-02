@@ -148,6 +148,7 @@ var myAnimal = angular.module('myAnimal', ['ngRoute', 'ui.bootstrap'])
                     console.log("jeesss");
                     vm.animals = data;
                     console.log(data);
+                    vm.edit = false;
                 })
                 .error(function(data) {
                     console.log('Error: ' + data);
@@ -160,7 +161,12 @@ var myAnimal = angular.module('myAnimal', ['ngRoute', 'ui.bootstrap'])
         }
 
         vm.editSighting = function(sighting) {
-
+            for (var i = 0; i < vm.sightings.length; i++) {
+                if (vm.sightings[i]._id == sighting._id) {
+                    vm.sightings[i].editSighting = true;
+                    angular.copy(vm.sightings[i], vm.changedSighting);
+                }
+            }
         }
 
         vm.updateSighting = function() {
@@ -169,7 +175,9 @@ var myAnimal = angular.module('myAnimal', ['ngRoute', 'ui.bootstrap'])
         }
 
         vm.cancelEditSighting = function() {
-
+            for (var i = 0; i < vm.sightings.length; i++) {
+                vm.sightings[i].editSighting = false;
+            }
         }
 
         vm.close = function () {
