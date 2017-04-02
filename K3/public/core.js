@@ -137,6 +137,7 @@ var myAnimal = angular.module('myAnimal', ['ngRoute', 'ui.bootstrap'])
 
         vm.animal = animal;
         vm.changedAnimal = {};
+        vm.changedSighting = {};
 
         vm.edit = false;
 
@@ -146,12 +147,33 @@ var myAnimal = angular.module('myAnimal', ['ngRoute', 'ui.bootstrap'])
         }
 
         vm.updateAnimal = function() {
-            //TODO
+            $http.post('/api/animals/update/', vm.changedAnimal)
+                .success(function(data) {
+                    console.log("jeesss");
+                    vm.animals = data;
+                    console.log(data);
+                })
+                .error(function(data) {
+                    console.log('Error: ' + data);
+                });
         }
 
-        vm.cancel = function() {
+        vm.cancelEditAnimal = function() {
             vm.changedAnimal = {};
             vm.edit = false;
+        }
+
+        vm.editSighting = function(sighting) {
+
+        }
+
+        vm.updateSighting = function() {
+            //TODO
+            
+        }
+
+        vm.cancelEditSighting = function() {
+
         }
 
         vm.close = function () {
