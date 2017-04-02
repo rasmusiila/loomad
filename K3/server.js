@@ -28,21 +28,16 @@ var Schema = mongoose.Schema;
 var AnimalSchema = new Schema({
     animalName: {
         type: String,
+        required: true,
         unique: true
     },
-    animalType: String
+    animalType: {required: true, type: String}
 });
 
 var SightingSchema = new Schema({
-    sightingName: {
-        type: String,
-        index: {
-            unique: true
-        }
-    },
-    sightingAnimal: [{type: mongoose.Schema.Types.ObjectId, ref: 'AnimalSchema'}],
-    sightingLocation: String,
-    sightingTime: String
+    sightingAnimal: [{required: true, type: mongoose.Schema.Types.ObjectId, ref: 'AnimalSchema'}],
+    sightingLocation: {required: true, type: String},
+    sightingTime: { required: true, type: Date, default: Date.now }
 });
 
 // Mongoose Model definition
@@ -115,6 +110,32 @@ app.post('/api/animals', function (req, res) {
 
 });
 
+
+app.post('/api/animals/update/', function (req, res) {
+    Animal.findByIdAndUpdate(req.body._id, req.body, function (err, animal) {
+        if (err) {
+            console.log(err);
+            //res.send(err);
+        } else {
+            Animal.find(function (err, animals) {
+                if (err) {
+                    //res.send(err);
+                } else {
+                    res.json(animals);
+                }
+            });
+        }
+    });
+
+});
+
+/*router.put('/:id', function(req, res, next) {
+  Todo.findByIdAndUpdate(req.params.id, req.body, function (err, post) {
+    if (err) return next(err);
+    res.json(post);
+  });
+});*/
+
 // delete an animal
 app.delete('/api/animals/:animal_id', function (req, res) {
     Animal.remove({
@@ -126,7 +147,7 @@ app.delete('/api/animals/:animal_id', function (req, res) {
         // get and return all the animals after you create another
         Animal.find(function (err, animals) {
             if (err)
-                res.send(err)
+                res.send(err);
             res.json(animals);
         });
     });
@@ -146,12 +167,20 @@ app.get('/api/sightings', function (req, res) {
     });
 });
 
+// get all sightings by animal
+app.get('/api/sightings/', function (req, res) {
+    Sighting.find(req.body.sightingAnimal, function (err, sightings) {
+        if (err)
+            res.send(err)
+        res.json(sightings);
+    });
+});
+
 // create sighting and send back all sightings after creation
 app.post('/api/sightings', function (req, res) {
 
     // create a sighting, information comes from AJAX request from Angular
     Sighting.create({
-        sightingName: req.body.sightingName,
         sightingAnimal: req.body.sightingAnimal,
         sightingLocation: req.body.sightingLocation,
         sightingTime: req.body.sightingTime,
@@ -162,6 +191,24 @@ app.post('/api/sightings', function (req, res) {
             //res.send(err);
         } else {
             // get and return all the animals after you create another
+            Sighting.find(function (err, sightings) {
+                if (err) {
+                    //res.send(err);
+                } else {
+                    res.json(sightings);
+                }
+            });
+        }
+    });
+
+});
+
+app.post('/api/sightings/update/:sighting_id', function (req, res) {
+    Sighting.findByIdAndUpdate(req.params.sighting_id, req.body, function (err, sighting) {
+        if (err) {
+            console.log(err);
+            //res.send(err);
+        } else {
             Sighting.find(function (err, sightings) {
                 if (err) {
                     //res.send(err);
