@@ -21,8 +21,6 @@
         <div class="col-sm-8 col-sm-offset-2 text-center">
             <form>
                 <div class="form-group">
-                    <input type="text" class="form-control input-lg text-center" placeholder="Insert sighting name"
-                           ng-model="vm.formData.sightingName">
                     <select class="form-control input-lg text-center" ng-model="vm.formData.sightingAnimal">
                         <option ng-repeat="animal in vm.animals" value={{animal._id}}>{{animal.animalName}}</option>
                     </select>
