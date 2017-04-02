@@ -8,12 +8,43 @@
             <!-- LOOP OVER THE sightings IN $scope.animals -->
             <div class="checkbox" ng-repeat="sighting in vm.sightings">
                 <label>
-                    {{ sighting.sightingName }}
+                    {{ sighting }}
                     <span class="glyphicon glyphicon-remove" ng-click="vm.deleteSighting(sighting._id)"></span>
                 </label>
             </div>
 
         </div>
+    </div>
+
+    <div class="col-md-4 col-md-offset-4">
+        <table class="table table-striped">
+            <tr>
+                <th>
+                Looma nimi
+                </th>
+                <th>
+                Koht
+                </th>
+                <th>
+                Aeg
+                </th>
+                <th class="col-md-1"></th>
+            </tr>
+            <tr ng-repeat="sighting in vm.sightings" >
+                <td>
+                    {{sighting.sightingAnimal}}
+                </td>
+                <td>
+                    {{sighting.sightingLocation}}
+                </td>
+                <td>
+                    {{sighting.sightingTime}}
+                </td>
+                <td class="text-center">
+                <span class="btn glyphicon glyphicon-remove" ng-click="vm.deleteAnimal(animal._id)"></span>
+                </td>
+            </tr>
+        </table>
     </div>
 
     <!-- FORM TO CREATE Sightings -->

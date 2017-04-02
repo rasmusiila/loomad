@@ -224,19 +224,17 @@ app.post('/api/sightings', function (req, res) {
 
 });
 
-app.post('/api/sightings/update/', function (req, res) {
+app.post('/api/sightings/update', function (req, res) {
     Sighting.findByIdAndUpdate(req.body._id, req.body, function (err, sighting) {
         if (err) {
             console.log(err);
             //res.send(err);
         } else {
-            // Sighting.find(function (err, sightings) {
-            //     if (err) {
-            //         //res.send(err);
-            //     } else {
-            //         res.json(sightings);
-            //     }
-            // });
+            Sighting.find(req.body.sightingAnimal, function (err, sightings) {
+                if (err)
+                    res.send(err)
+                res.json(sightings);
+            });
         }
     });
 
