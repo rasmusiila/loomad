@@ -136,6 +136,12 @@ var myAnimal = angular.module('myAnimal', ['ngRoute', 'ui.bootstrap'])
         vm.changedSighting = {};
 
         vm.edit = false;
+        vm.sightingBeingEdited = false;
+
+        $http.post('api/animal/sightings', vm.animal)
+                .success(function(data) {
+                    vm.sightings = data;
+                })
 
         vm.editAnimal = function() {
             angular.copy(vm.animal, vm.changedAnimal);
@@ -163,24 +169,32 @@ var myAnimal = angular.module('myAnimal', ['ngRoute', 'ui.bootstrap'])
         vm.editSighting = function(sighting) {
             for (var i = 0; i < vm.sightings.length; i++) {
                 if (vm.sightings[i]._id == sighting._id) {
-                    vm.sightings[i].editSighting = true;
+                    vm.sightings[i].edit = true;
                     angular.copy(vm.sightings[i], vm.changedSighting);
+                    vm.sightingBeingEdited = true;
                 }
             }
         }
 
         vm.updateSighting = function() {
-            //TODO
+            $http.post('/api/sightings/update', vm.changedSighting)
+                    .success(function(data) {
+                        vm.sightings = data;
+                        vm.cancelEditSighting();
+
+                    })
             
         }
 
         vm.cancelEditSighting = function() {
             for (var i = 0; i < vm.sightings.length; i++) {
-                vm.sightings[i].editSighting = false;
+                vm.sightings[i].edit = false;
             }
+            vm.sightingBeingEdited = false;
         }
 
         vm.close = function () {
+            vm.sightingBeingEdited = false;
             $uibModalInstance.dismiss('cancel');
         };
    });

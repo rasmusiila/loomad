@@ -56,7 +56,7 @@
                     <input ng-if="sighting.edit" class="form-control" ng-model="vm.changedSighting.sightingTime">
                 </td>
                 <td>
-                    <button ng-if="!sighting.edit" class="btn btn-primary" ng-click="vm.editSighting(sighting)">Muuda</button>
+                    <a ng-if="!sighting.edit" class="btn btn-primary" ng-class='{disabled: vm.sightingBeingEdited}' ng-click="vm.editSighting(sighting)">Muuda</a>
                     <button ng-if="sighting.edit" class="btn btn-success" ng-click="vm.updateSighting()">Salvesta</button>
                 </td>
                 <td>

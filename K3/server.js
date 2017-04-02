@@ -12,7 +12,7 @@ var methodOverride = require('method-override'); // simulate DELETE and PUT (exp
 
 // configuration =================
 
-mongoose.connect('mongodb://admin:password@olympia.modulusmongo.net:27017/nIqopo2z');     // connect to mongoDB database on modulus.io
+mongoose.connect('mongodb://admin:password@olympia.modulusmongo.net:27017/eS2utizo');     // connect to mongoDB database on modulus.io
 
 app.use(express.static(__dirname + '/public'));                 // set the static files location /public/img will be /img for users
 app.use(morgan('dev'));                                         // log every request to the console
@@ -168,7 +168,7 @@ app.get('/api/sightings', function (req, res) {
 });
 
 // get all sightings by animal
-app.get('/api/sightings/', function (req, res) {
+app.post('/api/animal/sightings', function (req, res) {
     Sighting.find(req.body.sightingAnimal, function (err, sightings) {
         if (err)
             res.send(err)
@@ -203,19 +203,24 @@ app.post('/api/sightings', function (req, res) {
 
 });
 
-app.post('/api/sightings/update/:sighting_id', function (req, res) {
-    Sighting.findByIdAndUpdate(req.params.sighting_id, req.body, function (err, sighting) {
+app.post('/api/sightings/update', function (req, res) {
+    Sighting.findByIdAndUpdate(req.body._id, req.body, function (err, sighting) {
         if (err) {
             console.log(err);
             //res.send(err);
         } else {
-            Sighting.find(function (err, sightings) {
-                if (err) {
-                    //res.send(err);
-                } else {
-                    res.json(sightings);
-                }
+            Sighting.find(req.body.sightingAnimal, function (err, sightings) {
+                if (err)
+                    res.send(err)
+                res.json(sightings);
             });
+            // Sighting.find(function (err, sightings) {
+                // if (err) {
+                    // res.send(err);
+                // } else {
+                    // res.json(sightings);
+                // }
+            // });
         }
     });
 
