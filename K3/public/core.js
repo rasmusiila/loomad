@@ -4,7 +4,7 @@
 // public/core.js
 var myAnimal = angular.module('myAnimal', ['ngRoute'])
     .config(function($routeProvider, $httpProvider) {
-            $routeProvider}).when('/animal', {
+            $routeProvider.when('/animal', {
                 templateUrl: 'animal.html',
                 controller: 'animalController',
                 controllerAs: 'vm'
