@@ -1,40 +1,31 @@
 <div class="container">
 
-    <button class="btn btn-primary" ng-click="vm.openAnimal()">Ava loom</button>
-
     <!-- Animal LIST -->
-    <div id="animal-list" class="row">
-        <div class="col-sm-4 col-sm-offset-4">
 
-            <!-- LOOP OVER THE animals IN $scope.animals -->
-            <div class="checkbox" ng-repeat="animal in vm.animals">
-                <label>
-                    {{ animal.animalName }} {{ animal.animalType }}
-                    <span class="glyphicon glyphicon-remove" ng-click="vm.deleteAnimal(animal._id)"></span>
-                </label>
-            </div>
-
-        </div>
+    <div class="col-md-4 col-md-offset-4">
+        <table class="table table-striped">
+            <tr>
+                <th>
+                Looma nimi
+                </th>
+                <th>
+                Looma liik
+                </th>
+                <th class="col-md-1"></th>
+            </tr>
+            <tr ng-repeat="animal in vm.animals" ng-click="vm.openAnimal(animal)">
+                <td>
+                    {{animal.animalName}}
+                </td>
+                <td>
+                    {{animal.animalType}}
+                </td>
+                <td class="text-center">
+                <span class="btn glyphicon glyphicon-remove" ng-click="vm.deleteAnimal(animal._id)"></span>
+                </td>
+            </tr>
+        </table>
     </div>
-
-    <table class="table table-striped">
-        <tr>
-            <th>
-            Looma nimi
-            </th>
-            <th>
-            Looma liik
-            </th>
-        </tr>
-        <tr ng-repeat="animal in vm.animals" ng-click="vm.openAnimal(animal)">
-            <td>
-                {{animal.animalName}}
-            </td>
-            <td>
-                {{animal.animalType}}
-            </td>
-        </tr>
-    </table>
 
     <!-- FORM TO CREATE Animals -->
     <div id="animal-form" class="row">
