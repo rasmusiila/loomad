@@ -1,0 +1,47 @@
+<div class="modal-header">
+    <h3 class="modal-title" id="modal-title">{{vm.animalType}}</h3>
+</div>
+<div class="modal-body" id="modal-body">
+    <div class="container">
+
+        <div class="h4">
+        Nägemised
+        </div>
+        <table class="table table-striped">
+            <tr>
+                <th>
+                    Looma nimi
+                </th>
+                <th>
+                    Asukoht
+                </th>
+                <th>
+                    Aeg
+                </th>
+                <th></th>
+                <th></th>
+            </tr>
+            <tr ng-repeat='animal in vm.animals' ng-click="vm.changeModals(animal)">
+                <td>
+                    {{animal.animalName}}
+                </td>
+                <td>
+                    <span>{{animal.sighting.sightingLocation}}</span>
+                </td>
+                <td>
+                    <span>{{animal.sighting.sightingTimeFormatted}}</span>
+                </td>
+                <td>
+                </td>
+                <td>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+
+
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="vm.close()">Sulge</button>
+</div>

@@ -37,7 +37,7 @@ var AnimalSchema = new Schema({
 var SightingSchema = new Schema({
     sightingAnimal: [{required: true, type: mongoose.Schema.Types.ObjectId, ref: 'AnimalSchema'}],
     sightingLocation: {required: true, type: String},
-    sightingTime: { required: true, type: String }
+    sightingTime: {required: true, type: Date, default: Date.now}
 });
 
 // Mongoose Model definition
@@ -46,26 +46,26 @@ var Sighting = mongoose.model('SightingModel', SightingSchema);
 
 
 /*var Animal = mongoose.model('Animal', {
-    animalName: {
-        type: String,
-        index: {
-            unique: true
-        }
-    },
-    animalType: String
-});
+ animalName: {
+ type: String,
+ index: {
+ unique: true
+ }
+ },
+ animalType: String
+ });
 
-var Sighting = mongoose.model('Animal', {
-    sightingName: {
-        type: String,
-        index: {
-            unique: true
-        }
-    },
-    animal: String,
-    location: String,
-    sightingTime: Date
-});*/
+ var Sighting = mongoose.model('Animal', {
+ sightingName: {
+ type: String,
+ index: {
+ unique: true
+ }
+ },
+ animal: String,
+ location: String,
+ sightingTime: Date
+ });*/
 
 // routes ======================================================================
 
@@ -82,6 +82,48 @@ app.get('/api/animals', function (req, res) {
 
         res.json(animals); // return all animals in JSON format
     });
+});
+
+
+// get all animals by type
+app.get('/api/animals/type/:type_id', function (req, res) {
+    Animal.find({animalType: req.params.type_id}, function (err, animals) {
+        if (err)
+            res.send(err)
+        res.json(animals);
+    });
+});
+
+app.post('/api/animals/update', function (req, res) {
+    Animal.findByIdAndUpdate(req.body._id, req.body, function (err, animal) {
+        if (err) {
+            console.log(err);
+            //res.send(err);
+        } else {
+            Animal.findById(req.body._id, function (err, animal) {
+                if (err) {
+                    //res.send(err);
+                } else {
+                    console.log(animal);
+                    res.json(animal);
+                }
+            });
+        }
+    });
+
+});
+
+// find animal by id
+app.get('/api/animals/:animal_id', function (req, res) {
+    Animal.findById(req.params.animal_id, function (err, animal) {
+        if (err) {
+            console.log(err);
+            //res.send(err);
+        } else {
+            res.json(animal);
+        }
+    });
+
 });
 
 // create animal and send back all animals after creation
@@ -109,32 +151,6 @@ app.post('/api/animals', function (req, res) {
     });
 
 });
-
-
-app.post('/api/animals/update/', function (req, res) {
-    Animal.findByIdAndUpdate(req.body._id, req.body, function (err, animal) {
-        if (err) {
-            console.log(err);
-            //res.send(err);
-        } else {
-            Animal.find(function (err, animals) {
-                if (err) {
-                    //res.send(err);
-                } else {
-                    res.json(animals);
-                }
-            });
-        }
-    });
-
-});
-
-/*router.put('/:id', function(req, res, next) {
-  Todo.findByIdAndUpdate(req.params.id, req.body, function (err, post) {
-    if (err) return next(err);
-    res.json(post);
-  });
-});*/
 
 // delete an animal
 app.delete('/api/animals/:animal_id', function (req, res) {
@@ -167,9 +183,31 @@ app.get('/api/sightings', function (req, res) {
     });
 });
 
+// find sighting by animal id
+app.get('/api/sightings/:animal_id', function (req, res) {
+    Sighting.find({sightingAnimal: req.params.animal_id}, function (err, sighting) {
+        if (err) {
+            console.log(err);
+            //res.send(err);
+        } else {
+            res.json(sighting);
+        }
+    });
+
+});
+
 // get all sightings by animal
 app.post('/api/animal/sightings', function (req, res) {
-    Sighting.find(req.body.sightingAnimal, function (err, sightings) {
+    Sighting.find({sightingAnimal: req.body._id}, function (err, sightings) {
+        if (err)
+            res.send(err);
+        res.json(sightings);
+    });
+});
+
+// get all sightings by location
+app.get('/api/sightings/location/:location_id', function (req, res) {
+    Sighting.find({sightingLocation: req.params.location_id}, function (err, sightings) {
         if (err)
             res.send(err)
         res.json(sightings);
@@ -178,7 +216,6 @@ app.post('/api/animal/sightings', function (req, res) {
 
 // create sighting and send back all sightings after creation
 app.post('/api/sightings', function (req, res) {
-
     // create a sighting, information comes from AJAX request from Angular
     Sighting.create({
         sightingAnimal: req.body.sightingAnimal,
@@ -214,13 +251,6 @@ app.post('/api/sightings/update', function (req, res) {
                     res.send(err)
                 res.json(sightings);
             });
-            // Sighting.find(function (err, sightings) {
-                // if (err) {
-                    // res.send(err);
-                // } else {
-                    // res.json(sightings);
-                // }
-            // });
         }
     });
 

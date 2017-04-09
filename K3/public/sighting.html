@@ -1,47 +1,32 @@
 <!-- SET THE CONTROLLER AND GET ALL Animals -->
 <div class="container">
 
-    <!-- Animal LIST -->
-    <div id="sighting-list" class="row">
-        <div class="col-sm-4 col-sm-offset-4">
-
-            <!-- LOOP OVER THE sightings IN $scope.animals -->
-            <div class="checkbox" ng-repeat="sighting in vm.sightings">
-                <label>
-                    {{ sighting }}
-                    <span class="glyphicon glyphicon-remove" ng-click="vm.deleteSighting(sighting._id)"></span>
-                </label>
-            </div>
-
-        </div>
-    </div>
-
     <div class="col-md-4 col-md-offset-4">
         <table class="table table-striped">
             <tr>
                 <th>
-                Looma nimi
+                    Looma nimi
                 </th>
                 <th>
-                Koht
+                    Koht
                 </th>
                 <th>
-                Aeg
+                    Aeg
                 </th>
                 <th class="col-md-1"></th>
             </tr>
-            <tr ng-repeat="sighting in vm.sightings" >
+            <tr ng-repeat="sighting in vm.sightings">
                 <td>
-                    {{sighting.sightingAnimal}}
+                    {{sighting.sightingAnimal.name}}
                 </td>
                 <td>
                     {{sighting.sightingLocation}}
                 </td>
                 <td>
-                    {{sighting.sightingTime}}
+                    {{sighting.sightingTimeFormatted}}
                 </td>
                 <td class="text-center">
-                <span class="btn glyphicon glyphicon-remove" ng-click="vm.deleteSighting(sighting._id)"></span>
+                    <span class="btn glyphicon glyphicon-remove" ng-click="vm.deleteSighting(sighting._id)"></span>
                 </td>
             </tr>
         </table>
@@ -57,10 +42,12 @@
                     </select>
                     <!--input type="text" class="form-control input-lg text-center" placeholder="Insert animal name"
                            ng-model="formData.sightingAnimal"-->
-                    <input type="text" class="form-control input-lg text-center" placeholder="Insert location"
+                    <input type="text" class="form-control input-lg text-center" placeholder="Asukoht"
                            ng-model="vm.formData.sightingLocation">
-                    <input type="text" class="form-control input-lg text-center" placeholder="Insert time of spotted"
-                           ng-model="vm.formData.sightingTime">
+                    <!--input type="text" class="form-control input-lg text-center" placeholder="Insert time of spotted"
+                           ng-model="vm.formData.sightingTime"-->
+                    <input datetime-picker class="form-control input-lg text-center" date-format="yyyy-MM-dd HH:mm:ss"
+                           ng-model="vm.formData.sightingTime" placeholder="Nägemise aeg"/>
                 </div>
 
                 <button type="submit" class="btn btn-primary btn-lg" ng-click="vm.createSighting()">Add</button>
