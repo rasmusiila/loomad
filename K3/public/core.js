@@ -145,6 +145,10 @@ var myAnimal = angular.module('myAnimal', ['ngRoute', 'ui.bootstrap', 'angularjs
                 .success(function (data) {
                     vm.sightings = data;
                     console.log(data);
+                    for (var i = 0; i < vm.sightings.length; i++) {
+                        vm.getAnimalNameById(vm.sightings[i]);
+                        vm.sightings[i].sightingTimeFormatted = moment(vm.sightings[i].sightingTime).format('DD-MM-YYYY, HH:mm');
+                    }
                 })
                 .error(function (data) {
                     console.log('Error: ' + data);
