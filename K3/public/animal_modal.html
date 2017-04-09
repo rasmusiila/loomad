@@ -27,7 +27,7 @@
         </div>
 
         <div class="h4">
-        Nägemised
+            Nägemised
         </div>
         <table class="table table-striped">
             <tr>
@@ -45,30 +45,34 @@
             </tr>
             <tr ng-repeat='sighting in vm.sightings'>
                 <td>
-                    {{sighting.animal.animalName}}
+                    {{sighting.animalName}}
                 </td>
                 <td>
                     <span ng-if="!sighting.edit">{{sighting.sightingLocation}}</span>
                     <input ng-if="sighting.edit" class="form-control" ng-model="vm.changedSighting.sightingLocation">
                 </td>
                 <td>
-                    <span ng-if="!sighting.edit">{{sighting.sightingTime}}</span>
-                    <input ng-if="sighting.edit" class="form-control" ng-model="vm.changedSighting.sightingTime">
+                    <span ng-if="!sighting.edit">{{sighting.sightingTimeFormatted}}</span>
+                    <!--input ng-if="sighting.edit" class="form-control" ng-model="vm.changedSighting.sightingTime"-->
+                    <input ng-if="sighting.edit" class="form-control" datetime-picker date-format="yyyy-MM-dd HH:mm:ss"
+                           ng-model="vm.changedSighting.sightingTimeFormatted" />
                 </td>
                 <td>
-                    <a ng-if="!sighting.edit" class="btn btn-primary" ng-class='{disabled: vm.sightingBeingEdited}' ng-click="vm.editSighting(sighting)">Muuda</a>
-                    <button ng-if="sighting.edit" class="btn btn-success" ng-click="vm.updateSighting()">Salvesta</button>
+                    <a ng-if="!sighting.edit" class="btn btn-primary" ng-class='{disabled: vm.sightingBeingEdited}'
+                       ng-click="vm.editSighting(sighting)">Muuda</a>
+                    <button ng-if="sighting.edit" class="btn btn-success" ng-click="vm.updateSighting()">Salvesta
+                    </button>
                 </td>
                 <td>
-                    <button ng-if="sighting.edit" class="btn btn-danger" ng-click="vm.cancelEditSighting()">Tühista</button>
+                    <button ng-if="sighting.edit" class="btn btn-danger" ng-click="vm.cancelEditSighting()">Tühista
+                    </button>
                 </td>
             </tr>
         </table>
     </div>
 
 
-
 </div>
 <div class="modal-footer">
-    <button class="btn btn-primary" type="button" ng-click="vm.close()">Close</button>
+    <button class="btn btn-primary" type="button" ng-click="vm.close()">Sulge</button>
 </div>

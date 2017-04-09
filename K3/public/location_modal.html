@@ -1,0 +1,47 @@
+<div class="modal-header">
+    <h3 class="modal-title" id="modal-title">{{vm.location}}</h3>
+</div>
+<div class="modal-body" id="modal-body">
+    <div class="container">
+
+        <div class="h4">
+        Asukohad
+        </div>
+        <table class="table table-striped">
+            <tr>
+                <th>
+                    Looma nimi
+                </th>
+                <th>
+                    Looma liik
+                </th>
+                <th>
+                    Aeg
+                </th>
+                <th></th>
+                <th></th>
+            </tr>
+            <tr ng-repeat='sighting in vm.latestSightings' ng-click="vm.changeModals(sighting.animal)">
+                <td>
+                    {{sighting.animal.animalName}}
+                </td>
+                <td>
+                    <span>{{sighting.animal.animalType}}</span>
+                </td>
+                <td>
+                    <span>{{sighting.sightingTimeFormatted}}</span>
+                </td>
+                <td>
+                </td>
+                <td>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+
+
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="vm.close()">Sulge</button>
+</div>

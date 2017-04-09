@@ -25,6 +25,10 @@
     <script type="text/javascript" src="ui-bootstrap-tpls-2.5.0.min.js"></script>
     <script src="core.js"></script>
 
+    <link rel="stylesheet" href="angularjs-datetime-picker.css" />
+    <script src="angularjs-datetime-picker.js"></script>
+    <script src="moment.js"></script>
+
 </head>
 <!-- SET THE CONTROLLER AND GET ALL Animals -->
 <body>
@@ -35,8 +39,10 @@
             <h1>I'm an animal-aholic <span class="label label-info">{{ animals.length }}</span></h1>
         </div>
 
-        <a class="btn btn-primary btn-lg" href="#/animal">Animals</a>
-        <a class="btn btn-primary btn-lg" href="#/sighting">Sightings</a>
+        <a class="btn btn-primary btn-lg" href="#/animal">Loomad</a>
+        <a class="btn btn-primary btn-lg" href="#/sighting">Nägemised</a>
+        <a class="btn btn-primary btn-lg" href="#/animalType">Loomaliigid</a>
+        <a class="btn btn-primary btn-lg" href="#/location">Asukohad</a>
     </div>
 
     <div class="container" ng-view></div>

@@ -13,11 +13,11 @@
                 </th>
                 <th class="col-md-1"></th>
             </tr>
-            <tr ng-repeat="animal in vm.animals" ng-click="vm.openAnimal(animal)">
-                <td>
+            <tr ng-repeat="animal in vm.animals">
+                <td ng-click="vm.openAnimal(animal)">
                     {{animal.animalName}}
                 </td>
-                <td>
+                <td ng-click="vm.openAnimal(animal)">
                     {{animal.animalType}}
                 </td>
                 <td class="text-center">
@@ -33,8 +33,8 @@
             <form>
                 <div class="form-group">
                     <!-- BIND THIS VALUE TO formData.text IN ANGULAR -->
-                    <input type="text" class="form-control input-lg text-center" placeholder="Insert animal" ng-model="vm.formData.animalName">
-                    <input type="text" class="form-control input-lg text-center" placeholder="Insert animal type" ng-model="vm.formData.animalType">
+                    <input type="text" class="form-control input-lg text-center" placeholder="Sisesta looma nimi" ng-model="vm.formData.animalName">
+                    <input type="text" class="form-control input-lg text-center" placeholder="Sisesta looma tüüp" ng-model="vm.formData.animalType">
                 </div>
 
                 <!-- createToDo() WILL CREATE NEW TODOS -->
