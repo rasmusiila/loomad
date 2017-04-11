@@ -29,11 +29,13 @@ var myAnimal = angular.module('myAnimal', ['ngRoute', 'ui.bootstrap', 'angularjs
     .controller('animalController', function ($http, $uibModal) {
         var vm = this;
         vm.formData = {};
+        vm.otsinguTulemus = [];
 
         // when landing on the page, get all animals and show them
         $http.get('/api/animals')
             .success(function (data) {
                 vm.animals = data;
+                angular.copy(vm.animals, vm.otsinguTulemus);
                 console.log(data);
             })
             .error(function (data) {
@@ -47,6 +49,7 @@ var myAnimal = angular.module('myAnimal', ['ngRoute', 'ui.bootstrap', 'angularjs
                     console.log("WHYs");
                     vm.formData = {}; // clear the form so our user is ready to enter another
                     vm.animals = data;
+                    angular.copy(vm.animals, vm.otsinguTulemus);
                     console.log(data);
                 })
                 .error(function (data) {
@@ -59,6 +62,7 @@ var myAnimal = angular.module('myAnimal', ['ngRoute', 'ui.bootstrap', 'angularjs
             $http.delete('/api/animals/' + id)
                 .success(function (data) {
                     vm.animals = data;
+                    angular.copy(vm.animals, vm.otsinguTulemus);
                     console.log(data);
                 })
                 .error(function (data) {
@@ -83,6 +87,15 @@ var myAnimal = angular.module('myAnimal', ['ngRoute', 'ui.bootstrap', 'angularjs
                 }
             });
         };
+
+        vm.otsiLoomaNimeJargi = function() {
+            vm.otsinguTulemus = [];
+            for (var i = 0; i < vm.animals.length; i++) {
+                if (vm.animals[i].animalName.toLowerCase().includes(vm.loomaNimiOtsing.toLowerCase())) {
+                    vm.otsinguTulemus.push(vm.animals[i]);
+                }
+            }
+        }
 
 
     })
@@ -158,6 +171,8 @@ var myAnimal = angular.module('myAnimal', ['ngRoute', 'ui.bootstrap', 'angularjs
     .controller('animalTypeController', function ($http, $uibModal) {
         var vm = this;
 
+        vm.otsinguTulemus = [];
+
         $http.get('/api/animals')
             .success(function (data) {
                 vm.animals = data;
@@ -175,6 +190,7 @@ var myAnimal = angular.module('myAnimal', ['ngRoute', 'ui.bootstrap', 'angularjs
             }
             var animalTypesSet = new Set(animalTypes);
             vm.animalTypes = Array.from(animalTypesSet);
+            angular.copy(vm.animalTypes, vm.otsinguTulemus);
         }
 
         vm.openAnimalType = function (animalType) {
@@ -195,9 +211,20 @@ var myAnimal = angular.module('myAnimal', ['ngRoute', 'ui.bootstrap', 'angularjs
             });
         };
 
+        vm.otsiLoomaLiigiJargi = function() {
+            vm.otsinguTulemus = [];
+            for (var i = 0; i < vm.animalTypes.length; i++) {
+                if (vm.animalTypes[i].toLowerCase().includes(vm.loomaLiikOtsing.toLowerCase())) {
+                    vm.otsinguTulemus.push(vm.animalTypes[i]);
+                }
+            }
+        }
+
     })
     .controller('locationController', function ($http, $uibModal) {
         var vm = this;
+
+        vm.otsinguTulemus = [];
 
         $http.get('/api/sightings')
             .success(function (data) {
@@ -216,6 +243,7 @@ var myAnimal = angular.module('myAnimal', ['ngRoute', 'ui.bootstrap', 'angularjs
             }
             var locationSet = new Set(locations);
             vm.locations = Array.from(locationSet);
+            angular.copy(vm.locations, vm.otsinguTulemus);
         }
 
         vm.openLocation = function (location) {
@@ -235,6 +263,15 @@ var myAnimal = angular.module('myAnimal', ['ngRoute', 'ui.bootstrap', 'angularjs
                 }
             });
         };
+
+        vm.otsiAsukohaJargi = function() {
+            vm.otsinguTulemus = [];
+            for (var i = 0; i < vm.locations.length; i++) {
+                if (vm.locations[i].toLowerCase().includes(vm.asukohtOtsing.toLowerCase())) {
+                    vm.otsinguTulemus.push(vm.locations[i]);
+                }
+            }
+        }
 
     })
     .controller('animalModalController', function ($http, $uibModalInstance, animal) {

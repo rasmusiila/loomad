@@ -1,5 +1,21 @@
 <div class="container">
 
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <form class="form-group" ng-submit="vm.otsiLoomaLiigiJargi()">
+                <div class="form-group">
+                    <label>Otsing</label>
+                    <input type="text" name="loomaLiik" class="form-control" ng-model="vm.loomaLiikOtsing" placeholder="Otsi looma liigi järgi">
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary">
+                        Otsi
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <!-- Animal type LIST -->
 
     <div class="col-md-4 col-md-offset-4">
@@ -9,7 +25,7 @@
                 Looma liik
                 </th>
             </tr>
-            <tr ng-repeat="animalType in vm.animalTypes">
+            <tr ng-repeat="animalType in vm.otsinguTulemus">
                 <td ng-click="vm.openAnimalType(animalType)">
                     {{animalType}}
                 </td>

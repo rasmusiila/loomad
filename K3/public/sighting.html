@@ -1,6 +1,38 @@
 <!-- SET THE CONTROLLER AND GET ALL Animals -->
 <div class="container">
 
+<!-- FORM TO CREATE Sightings -->
+    <div id="animal-form" class="row">
+        <div class="col-sm-8 col-sm-offset-2 text-center">
+            <form>
+                <div class="form-group">
+                    <select class="form-control input-lg text-center" ng-model="vm.formData.sightingAnimal">
+                        <option ng-repeat="animal in vm.animals" value={{animal._id}}>{{animal.animalName}}</option>
+                    </select>
+                    <!--input type="text" class="form-control input-lg text-center" placeholder="Insert animal name"
+                           ng-model="formData.sightingAnimal"-->
+                    <input type="text" class="form-control input-lg text-center" placeholder="Asukoht"
+                           ng-model="vm.formData.sightingLocation">
+                    <!--input type="text" class="form-control input-lg text-center" placeholder="Insert time of spotted"
+                           ng-model="vm.formData.sightingTime"-->
+                    <input datetime-picker class="form-control input-lg text-center" date-format="yyyy-MM-dd HH:mm:ss"
+                           ng-model="vm.formData.sightingTime" placeholder="Nägemise aeg"/>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-lg" ng-click="vm.createSighting()">Add</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="row">
+        <form class="form-group">
+            <div class="form-group">
+                <label>Looma nimi</label>
+                <input type="text" name="loomaNimi" ng-model="vm.loomaNimiOtsing" placeholder="Otsi looma nime järgi">
+            </div>
+        </form>
+    </div>
+
     <div class="col-md-4 col-md-offset-4">
         <table class="table table-striped">
             <tr>
@@ -32,28 +64,7 @@
         </table>
     </div>
 
-    <!-- FORM TO CREATE Sightings -->
-    <div id="animal-form" class="row">
-        <div class="col-sm-8 col-sm-offset-2 text-center">
-            <form>
-                <div class="form-group">
-                    <select class="form-control input-lg text-center" ng-model="vm.formData.sightingAnimal">
-                        <option ng-repeat="animal in vm.animals" value={{animal._id}}>{{animal.animalName}}</option>
-                    </select>
-                    <!--input type="text" class="form-control input-lg text-center" placeholder="Insert animal name"
-                           ng-model="formData.sightingAnimal"-->
-                    <input type="text" class="form-control input-lg text-center" placeholder="Asukoht"
-                           ng-model="vm.formData.sightingLocation">
-                    <!--input type="text" class="form-control input-lg text-center" placeholder="Insert time of spotted"
-                           ng-model="vm.formData.sightingTime"-->
-                    <input datetime-picker class="form-control input-lg text-center" date-format="yyyy-MM-dd HH:mm:ss"
-                           ng-model="vm.formData.sightingTime" placeholder="Nägemise aeg"/>
-                </div>
-
-                <button type="submit" class="btn btn-primary btn-lg" ng-click="vm.createSighting()">Add</button>
-            </form>
-        </div>
-    </div>
+    
 
 
 </div>
